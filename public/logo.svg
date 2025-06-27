@@ -1,0 +1,13 @@
+<svg width="78" height="70" viewBox="0 0 78 70" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle for visual interest -->
+  <circle cx="35" cy="35" r="35" fill="#0e9f6e" opacity="0.8"/>
+  
+  <!-- Main icon - represents growth/skills with geometric shapes -->
+  <g transform="translate(10, 10)">
+    <!-- Skill levels represented as ascending bars -->
+    <rect x="5" y="30" width="8" height="15" fill="#2D5A3D" rx="2"/>
+    <rect x="15" y="20" width="8" height="25" fill="#40916C" rx="2"/>
+    <rect x="25" y="10" width="8" height="35" fill="#52B788" rx="2"/>
+    <rect x="35" y="0" width="8" height="45" fill="#74C69D" rx="2"/>
+  </g>
+</svg>
