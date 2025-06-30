@@ -32,14 +32,14 @@
 
 @layer components {
   .btn {
-    @apply px-4 py-2  bg-green-dark rounded  hover:bg-green-dark/90 cursor-pointer;
+    @apply px-4 py-2  bg-green-dark rounded filter  active:brightness-110  hover:bg-green-dark/90 cursor-pointer disabled:cursor-not-allowed disabled:bg-green-dark/60;
   }
 
   .btn-max {
-    @apply px-4 py-2 w-full bg-green-dark rounded  hover:bg-green-dark/90 cursor-pointer filter active:brightness-110;
+    @apply px-4 py-2 w-full bg-green-dark rounded  hover:bg-green-dark/90 cursor-pointer filter active:brightness-110 disabled:cursor-not-allowed disabled:bg-green-dark/60;
   }
 
   .input {
-    @apply block border border-stone-700 px-3 py-2 w-full rounded focus:outline text-sm outline-green-dark;
+    @apply block border border-stone-700 px-3 py-2 w-full rounded focus:outline  text-sm outline-green-dark disabled:bg-light-gray/5 disabled:cursor-not-allowed;
   }
 }
