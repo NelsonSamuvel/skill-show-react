@@ -5,6 +5,11 @@ import App from "./App.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AuthForm from "./components/Auth/AuthForm.tsx";
 import HomePage from "./components/HomePage.tsx";
+import ProfilePage from "./pages/ProfilePage.tsx";
+import { ThemeProvider } from "./components/UI/ThemeProvider.tsx";
+import ProtectedRoute from "./components/ProtectedRoute.tsx";
+import { Toaster } from "react-hot-toast";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -12,12 +17,23 @@ const router = createBrowserRouter([
     children: [
       { path: "", element: <HomePage /> },
       { path: "auth", element: <AuthForm /> },
+      {
+        path: "profile",
+        element: (
+          <ProtectedRoute>
+            <ProfilePage />
+          </ProtectedRoute>
+        ),
+      },
     ],
   },
 ]);
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <ThemeProvider storageKey="theme" defaultTheme="system">
+      <Toaster position="top-center" reverseOrder={false} />
+      <RouterProvider router={router} />
+    </ThemeProvider>
   </StrictMode>
 );

@@ -1,10 +1,13 @@
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useState } from "react";
 import { signIn, signUp } from "../../services/authService";
 import MiniSpinner from "../UI/MiniSpinner";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { authSchema } from "../../schema/authSchema";
+import toast from "react-hot-toast";
+import { useUiStore, type UiStateType } from "@/store/useUiStore";
+import Loader from "../UI/Loader";
 
 type modeType = "signup" | "signin";
 type FormDatatype = {
@@ -14,6 +17,16 @@ type FormDatatype = {
 
 const AuthForm = () => {
   const navigate = useNavigate();
+  const { isGlobalLoading: isLoading, setIsGlobalLoading: setIsLoading } =
+    useUiStore();
+
+  const [searchParams] = useSearchParams();
+  const urlMode = searchParams.get("mode");
+
+  const [mode, setMode] = useState<modeType>(() => {
+    const modeName = localStorage.getItem("mode") as modeType | undefined;
+    return modeName ? modeName : urlMode === "login" ? "signin" : "signup";
+  });
 
   const {
     register,
@@ -28,35 +41,38 @@ const AuthForm = () => {
     },
   });
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const [mode, setMode] = useState<modeType>("signup");
-
-  const [loading, setLoading] = useState(false);
   const onSubmit: SubmitHandler<FormDatatype> = async (data) => {
     const { email, password } = data;
 
     try {
-      setLoading(true);
+      setIsLoading(true);
       const { data, error } =
         mode === "signup"
           ? await signUp(email, password)
           : await signIn(email, password);
       if (error) {
         console.error(error);
-        throw new Error("Authentication Failed");
+        throw new Error(error.message);
       }
-      alert(mode === "signup" ? "Account Created!" : "Logged in!");
+      toast.success(mode === "signup" ? "Account Created!" : "Logged in!");
+
+      mode === "signup" ? setMode("signin") : navigate("/", { replace: true });
       reset();
     } catch (error) {
       if (error instanceof Error) {
-        alert(error.message);
+        toast.error(error.message);
       }
       console.error(error);
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
+  };
+
+  const handleMode = () => {
+    setMode((curMode) => {
+      localStorage.setItem("mode", curMode == "signup" ? "signin" : "signup");
+      return curMode === "signup" ? "signin" : "signup";
+    });
   };
 
   useEffect(() => {
@@ -65,7 +81,8 @@ const AuthForm = () => {
 
   return (
     <section className="min-h-screen flex justify-center items-center">
-      <div className="bg-surface rounded px-6 py-8 pb-12 w-full max-w-md md:max-w-lg">
+      {isLoading && <Loader />}
+      <div className="dark:bg-surface rounded px-6 py-8 pb-12 w-full max-w-md md:max-w-lg">
         <div className="flex justify-center flex-col items-center gap-2">
           <img src="logo.svg" alt="logo" className="" />
           <p className="text-sm md:text-md text-light-gray">
@@ -92,7 +109,6 @@ const AuthForm = () => {
                 <input
                   id="email"
                   type="text"
-                  disabled={loading}
                   {...register("email")}
                   placeholder="Enter your Email ID"
                   className="input"
@@ -113,7 +129,6 @@ const AuthForm = () => {
                 <input
                   id="password"
                   type="password"
-                  disabled={loading}
                   placeholder="Enter your Password"
                   {...register("password")}
                   className="input "
@@ -127,17 +142,11 @@ const AuthForm = () => {
             </div>
           </div>
           <button
-            disabled={loading}
+            disabled={isLoading}
             type="submit"
             className="btn-max mt-8 flex justify-center"
           >
-            {loading ? (
-              <MiniSpinner />
-            ) : mode === "signup" ? (
-              "Sign up"
-            ) : (
-              "Login"
-            )}
+            {mode === "signup" ? "Sign up" : "Login"}
           </button>
         </form>
         <p className="text-center text-sm mt-4">
@@ -147,9 +156,7 @@ const AuthForm = () => {
 
           <span
             className="text-green-dark cursor-pointer hover:opacity-90"
-            onClick={() =>
-              setMode((curMode) => (curMode === "signup" ? "signin" : "signup"))
-            }
+            onClick={handleMode}
           >
             {mode === "signup" ? "login" : "signup"}
           </span>
