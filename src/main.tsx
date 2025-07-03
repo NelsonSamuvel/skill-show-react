@@ -5,10 +5,11 @@ import App from "./App.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AuthForm from "./components/Auth/AuthForm.tsx";
 import HomePage from "./components/HomePage.tsx";
-import ProfilePage from "./pages/ProfilePage.tsx";
-import { ThemeProvider } from "./components/UI/ThemeProvider.tsx";
+import ProfileBasicFormPage from "./pages/ProfileBasicFormPage.tsx";
+import { ThemeProvider } from "./components/ui/ThemeProvider.tsx";
 import ProtectedRoute from "./components/ProtectedRoute.tsx";
 import { Toaster } from "react-hot-toast";
+import ProfileFormPage from "./pages/ProfileBasicFormPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -18,10 +19,18 @@ const router = createBrowserRouter([
       { path: "", element: <HomePage /> },
       { path: "auth", element: <AuthForm /> },
       {
-        path: "profile",
+        path: "profile/:userId",
         element: (
           <ProtectedRoute>
-            <ProfilePage />
+            <ProfileBasicFormPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "profile/basic/update",
+        element: (
+          <ProtectedRoute>
+            <ProfileFormPage />
           </ProtectedRoute>
         ),
       },

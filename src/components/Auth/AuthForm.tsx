@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { signIn, signUp } from "../../services/authService";
-import MiniSpinner from "../UI/MiniSpinner";
+import MiniSpinner from "../ui/MiniSpinner";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { authSchema } from "../../schema/authSchema";
 import toast from "react-hot-toast";
 import { useUiStore, type UiStateType } from "@/store/useUiStore";
-import Loader from "../UI/Loader";
+import Loader from "../ui/Loader";
 
 type modeType = "signup" | "signin";
 type FormDatatype = {

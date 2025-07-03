@@ -1,7 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
 import ProfileMenu from "./Profile/ProfileMenu";
-import { Button } from "./UI/button";
-import type { User } from "@/types/userType";
+import { Button } from "./ui/button";
+import type { User } from "@supabase/supabase-js";
 
 const Navbar = ({ user }: { user: User }) => {
   return (

@@ -1,11 +1,11 @@
 import { Outlet, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import { useUiStore, type UiStateType } from "./store/useUiStore";
-import Spinner from "./components/UI/Spinner";
+import Spinner from "./components/ui/Spinner";
 import { useEffect } from "react";
 import { supabase } from "./lib/supabaseClient";
 import { useAuthStore } from "./store/useAuthStore";
-import Loader from "./components/UI/Loader";
+import Loader from "./components/ui/Loader";
 
 function App() {
   const { pathname } = useLocation();

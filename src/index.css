@@ -56,6 +56,14 @@
   .input {
     @apply block border border-stone-700 px-3 py-2 w-full rounded focus:outline  text-sm outline-green-dark disabled:bg-light-gray/5 disabled:cursor-not-allowed;
   }
+
+  .padding-md {
+    @apply px-6 py-4;
+  }
+
+  .padding-sm {
+    @apply p-4;
+  }
 }
 
 @theme inline {
@@ -69,8 +77,8 @@
   --color-card-foreground: var(--card-foreground);
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--color-green-dark);
+  --color-primary-foreground: var(--color-whitesmoke);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);

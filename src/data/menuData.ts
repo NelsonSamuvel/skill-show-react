@@ -5,6 +5,11 @@ import {
     LayoutDashboardIcon,
     UserPlusIcon,
     LogInIcon,
+    ArrowLeft,
+    ChevronLeft,
+    Book,
+    Hammer,
+    Package,
 } from "lucide-react";
 
 export const profileMenu = [
@@ -12,7 +17,27 @@ export const profileMenu = [
         id: "profile",
         label: "Profile",
         value: "profile",
-        icon: UserIcon,
+        icon: ChevronLeft,
+        children: [
+            {
+                id: "info",
+                label: "Edit Basic Info",
+                value: "edit-basic",
+                icon: Book,
+            },
+            {
+                id: "skills",
+                label: "Edit Skills",
+                value: "edit-skills",
+                icon: Hammer,
+            },
+            {
+                id: "projects",
+                label: "Edit Projects",
+                value: "edit-projects",
+                icon: Package,
+            }
+        ]
     },
     {
         id: "logout",
