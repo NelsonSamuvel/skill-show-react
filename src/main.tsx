@@ -10,6 +10,9 @@ import { ThemeProvider } from "./components/ui/ThemeProvider.tsx";
 import ProtectedRoute from "./components/ProtectedRoute.tsx";
 import { Toaster } from "react-hot-toast";
 import ProfileFormPage from "./pages/ProfileBasicFormPage.tsx";
+import SkillsFormPage from "./pages/SkillsFormPage.tsx";
+
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const router = createBrowserRouter([
   {
@@ -34,15 +37,27 @@ const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+      {
+        path: "profile/skills/update",
+        element: (
+          <ProtectedRoute>
+            <SkillsFormPage />
+          </ProtectedRoute>
+        ),
+      },
     ],
   },
 ]);
 
+const queryClient = new QueryClient();
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ThemeProvider storageKey="theme" defaultTheme="system">
-      <Toaster position="top-center" reverseOrder={false} />
-      <RouterProvider router={router} />
+      <QueryClientProvider client={queryClient}>
+        <Toaster position="top-center" reverseOrder={false} />
+        <RouterProvider router={router} />
+      </QueryClientProvider>
     </ThemeProvider>
   </StrictMode>
 );

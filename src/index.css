@@ -42,6 +42,40 @@
   .text-hover {
     @apply hover:text-green-dark transition-all duration-150;
   }
+
+  .padding-md {
+    @apply px-6 py-4;
+  }
+
+  .padding-sm {
+    @apply p-4;
+  }
+
+  .viewport-full {
+    @apply min-h-[calc(100dvh-80px)];
+  }
+
+  .form-btn {
+    @apply w-full md:w-fit;
+  }
+
+  .scrollbar-thin {
+    scrollbar-width: thin;
+  }
+  .scrollbar-thumb-rounded {
+    scrollbar-color: #888 transparent;
+  }
+  .scrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  .scrollbar::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 4px;
+  }
+  .scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
 }
 
 @layer components {
@@ -55,14 +89,6 @@
 
   .input {
     @apply block border border-stone-700 px-3 py-2 w-full rounded focus:outline  text-sm outline-green-dark disabled:bg-light-gray/5 disabled:cursor-not-allowed;
-  }
-
-  .padding-md {
-    @apply px-6 py-4;
-  }
-
-  .padding-sm {
-    @apply p-4;
   }
 }
 

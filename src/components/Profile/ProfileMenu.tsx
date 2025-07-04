@@ -12,7 +12,7 @@ import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar";
 import { profileMenu } from "@/data/menuData";
 import type { LucideProps } from "lucide-react";
 import { signOut } from "@/services/authService";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useUiStore, type UiStateType } from "@/store/useUiStore";
 import {
@@ -33,8 +33,6 @@ type ItemType = {
 
 const ProfileMenu = () => {
   const navigate = useNavigate();
-
-
 
   const setIsLoading = useUiStore(
     (state: UiStateType) => state.setIsGlobalLoading
@@ -91,13 +89,16 @@ const ProfileMenu = () => {
                 <MenubarSubContent className="bg-surface min-w-[10rem] border border-surface rounded-lg shadow-lg p-1 ml-2 animate-in fade-in-0 zoom-in-95">
                   {item.children.map((subItem) => (
                     <MenubarItem
+                      asChild
                       key={subItem.id}
                       className="flex items-center justify-between px-3 py-2 text-sm text-white hover:bg-surface rounded-md transition-colors duration-200 cursor-pointer focus:outline-none focus:bg-[#0e9f6e] focus:text-white"
                     >
-                      <span className="font-medium">{subItem.label}</span>
-                      <MenubarShortcut className="opacity-70">
-                        <subItem.icon className="w-4 h-4" />
-                      </MenubarShortcut>
+                      <Link to={subItem.link || "/"}>
+                        <span className="font-medium">{subItem.label}</span>
+                        <MenubarShortcut className="opacity-70">
+                          <subItem.icon className="w-4 h-4" />
+                        </MenubarShortcut>
+                      </Link>
                     </MenubarItem>
                   ))}
                 </MenubarSubContent>

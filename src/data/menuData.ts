@@ -24,12 +24,14 @@ export const profileMenu = [
                 label: "Edit Basic Info",
                 value: "edit-basic",
                 icon: Book,
+                link: '/profile/basic/update'
             },
             {
                 id: "skills",
                 label: "Edit Skills",
                 value: "edit-skills",
                 icon: Hammer,
+                link: 'profile/skills/update'
             },
             {
                 id: "projects",
